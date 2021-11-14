@@ -1,5 +1,5 @@
 import { Bar } from 'react-chartjs-2';
-import { ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions } from 'chart.js';
 import styled from '@emotion/styled';
 import { Country } from '../types';
 
@@ -7,17 +7,11 @@ interface Props {
     countries: Country[];
 }
 
-static defaultProps = {profileStore:{}}
-
 const options: ChartOptions<any> = {
-    scales: {
-        yAxes: [
-            {
-                ticks: {
-                    beginAtZero: true,
-                },
-            },
-        ],
+    plugins: {
+        legend: {
+            display: false,
+        },
     },
 };
 
@@ -27,7 +21,7 @@ const ChartWrapper = styled.div`
 `;
 
 const BarChart: React.FunctionComponent<Props> = ({ countries }) => {
-    const generateChartData = () => {
+    const generateChartData = (): ChartData => {
         const data: number[] = [];
         const labels: string[] = [];
 
@@ -64,7 +58,11 @@ const BarChart: React.FunctionComponent<Props> = ({ countries }) => {
         }
     }
 
-    return <ChartWrapper><Bar data={generateChartData()} options={options} /></ChartWrapper>;
+    return (
+    <ChartWrapper>
+        <Bar type="bar" data={generateChartData()} options={options} />
+    </ChartWrapper>
+    );
 };
 
 export default BarChart;

@@ -55,7 +55,9 @@ const App: React.FunctionComponent = () => {
           />
 
           <hr/>
-          <BarChart countries={activeCountries}/>
+          {activeCountries.length ? (
+            <BarChart countries={activeCountries} />
+          ) : null}
 
           <CountryList countries={data.Countries} onItemClick={onCountryClick} />
         </>
